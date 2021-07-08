@@ -6,7 +6,17 @@ const { sleep, generateSlug, parsePrecision } = require('./helpers')
 const { DCRC_API, DCRC_CDN } = require('../config')
 const log = console.log
 
-const createDraftArray = async (story, first, last, title) => {
+const getLayout = async (layout = 'layout-default', jwt) => {
+	const { data } = await axios.get(`${DCRC_API}/layouts?class=${layout}`, jwt)
+	return data[0]
+}
+
+const getStory = async (story, jwt) => {
+	const { data } = await axios.get(`${DCRC_API}/stories?name=${story}`, jwt)
+	return data[0]
+}
+
+const createDraftArray = async (story, storyId, layoutId, first, last, title) => {
 	
 	const draftArray = []
 	
@@ -19,10 +29,10 @@ const createDraftArray = async (story, first, last, title) => {
 			nextPageNumber: i+1,
 			bodyStd: `[img]${DCRC_CDN}/${story.imgLoc}/panels/${parsePrecision(i, story.precision)}.${story.suffix}[/img]`,
 			story: {
-				_id: story.storyID
+				_id: storyId
 			},
 			layout: {
-				_id: story.layoutID
+				_id: layoutId
 			},
 			slug: generateSlug(story.storyLoc, i),
 			published_at: null
@@ -48,6 +58,7 @@ const uploadDraftArray = async (pages, story, jwt) => {
 module.exports = {
 	async draft(story = null, first = null, last = null, title = null) {
 		try {
+			
 			// argument validation
 			if (story == null)
 				throw `ERROR: Story is not specified. Please specify a story with -s or --story.`
@@ -67,7 +78,11 @@ module.exports = {
 			switch (story.toLowerCase()) {
 				case 'vast-error':
 				case 'vasterror':
-					pages = await createDraftArray(stories.vasterror, first, last, title)
+					const { id:storyId } = await getStory('vast-error', jwt)
+					const { id:layoutId } = await getLayout('layout-default', jwt)
+					log(storyId)
+					log(layoutId)
+					pages = await createDraftArray(stories.vasterror, storyId, layoutId, first, last, title)
 					await uploadDraftArray(pages, stories.vasterror, jwt)
 					break
 				case 'thaumatrope':
