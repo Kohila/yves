@@ -3,7 +3,7 @@ const axios = require('axios')
 const { layouts, stories } = require('../config/defaults')
 const { authenticate } = require('./authenticate')
 const { sleep, generateSlug, parsePrecision } = require('./helpers')
-const { DCRC_API, DCRC_CDN } = require('../config/index')
+const { DCRC_API, DCRC_CDN } = require('../config')
 const log = console.log
 
 const createDraftArray = async (story, first, last, title) => {
