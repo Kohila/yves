@@ -16,10 +16,11 @@ program
 	.option('-f, --first <first>', 'first page of range to create')
 	.option('-l, --last <last>', 'last page of range to create')
 	.option('-c --command <title>', 'default command for created pages')
+	.option('-t --theme <layout>', 'default layout for created pages')
 	.action((options) => {
 		options.title == undefined ? options.title = `======>` : ''
-		const { story, first, last, title } = options
-		draft(story, first, last, title)
+		const { story, first, last, title, layout } = options
+		draft(story, first, last, title, layout)
 	})
 	
 program
