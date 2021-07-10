@@ -46,7 +46,7 @@ const generateRSS = async (story, jwt) => {
 	log(feed.xml({ indent: true }))
 	
 	fs.writeFileSync(`${RSS_DIR}/${storyRoot}.xml`, feed.xml({ indent: true }))
-	console.log(`RSS Feed created on ${now}`.green)
+	log(`RSS Feed created on ${moment(now)}`.green)
 }
 	
 module.exports = {
