@@ -35,5 +35,5 @@ function parsePrecision(num, prec) {
 module.exports = {
 	sleep,
 	generateSlug,
-	parsePrecision
+	parsePrecision,
 }

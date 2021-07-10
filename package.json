@@ -12,7 +12,12 @@
   "author": "Kohi",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.21.1",
     "colors": "^1.4.0",
-    "dotenv": "^10.0.0"
+    "commander": "^8.0.0",
+    "dotenv": "^10.0.0",
+    "fs": "*",
+    "moment": "^2.29.1",
+    "rss": "^1.2.2"
   }
 }
