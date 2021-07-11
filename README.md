@@ -25,7 +25,8 @@ yves draft
 
 ### Publish
 ```bash
-yves publish```
+yves publish
+```
 
 | Option  | Usage | Description |
 | --- | --- | --- |
