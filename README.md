@@ -2,12 +2,6 @@
 
 A CLI utility to speed up the drafting and publishing of pages to the DCRC API. Destined to be deprecated.
 
-## Installation
-
-```bash
-npm install yves
-```
-
 ## Available commands
 
 ### Draft
