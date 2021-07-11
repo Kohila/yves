@@ -15,12 +15,13 @@ program
 	.option('-s, --story <story>', 'story to modify')
 	.option('-f, --first <first>', 'first page of range to create')
 	.option('-l, --last <last>', 'last page of range to create')
-	.option('-c --command <title>', 'default command for created pages')
-	.option('-t --theme <layout>', 'default layout for created pages')
+	.option('-c --command <title>', 'default command for created pages ( fallback as: ======> )')
+	.option('-t --layout <layout>', 'default layout for created pages ( fallback as: layout-default )')
+	.option('-e --suffix <suffix>', 'default panel image suffix for created pages ( fallback as: gif )')
+	.option('-p --precision <precision>', 'default panel image numbering precision for leading zeroes  ( fallback as: 5 )')
 	.action((options) => {
-		options.title == undefined ? options.title = `======>` : ''
-		const { story, first, last, title, layout } = options
-		draft(story, first, last, title, layout)
+		const { story, first, last, title, theme:layout, suffix, precision } = options
+		draft(story, first, last, title, layout, suffix, precision)
 	})
 	
 program

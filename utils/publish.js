@@ -2,7 +2,7 @@ const colors = require('colors')
 const { ENV } = require('../config')
 const { authenticate } = require('./authenticate')
 const { generateRSS } = require('./rss')
-const { sleep, generateSlug } = require('./helpers')
+const { sleep, generateSlug, getLayout, getStory } = require('./helpers')
 const log = console.log
 
 module.exports = {

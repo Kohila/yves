@@ -1,3 +1,8 @@
+const colors = require('colors')
+const axios = require('axios')
+const { DCRC_API } = require('../config')
+const log = console.log
+
 function sleep(ms) {
   return new Promise((resolve) => {
 	setTimeout(resolve, ms)
@@ -32,8 +37,26 @@ function parsePrecision(num, prec) {
 	return num
 }
 
+async function getLayout(layout = 'layout-default', jwt) {
+	let { data } = await axios.get(`${DCRC_API}/layouts?class=${layout}`, jwt)
+	
+	if (data.length <= 0) {
+		log(`WARNING: No layout found with class name ${layout}. Fallback to layout-default.`.yellow)
+		data = (await axios.get(`${DCRC_API}/layouts?class=layout-default`, jwt)).data
+	}
+	
+	return data[0]
+}
+
+async function getStory(story, jwt) {
+	const { data } = await axios.get(`${DCRC_API}/stories?name=${story}`, jwt)
+	return data[0]
+}
+
 module.exports = {
 	sleep,
 	generateSlug,
 	parsePrecision,
+	getLayout,
+	getStory,
 }
