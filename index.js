@@ -31,7 +31,8 @@ program
 	.option('-f, --first <first>', 'first page of range to publish')
 	.option('-l, --last <last>', 'last page of range to publish')
 	.action((options) => {
-		const { story, first, last } = options
+		const { story, first } = options
+		const last = (typeof options.last == 'undefined') ? first : options.last
 		publish(story, first, last)
 	})
 
