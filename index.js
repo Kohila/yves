@@ -35,7 +35,3 @@ program
 	})
 
 program.parse(process.argv)
-
-if (process.argv.length < 3) {
-  program.help()
-}
