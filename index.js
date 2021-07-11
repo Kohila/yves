@@ -20,7 +20,8 @@ program
 	.option('-e --suffix <suffix>', 'default panel image suffix for created pages ( fallback as: gif )')
 	.option('-p --precision <precision>', 'default panel image numbering precision for leading zeroes  ( fallback as: 5 )')
 	.action((options) => {
-		const { story, first, last, title, theme:layout, suffix, precision } = options
+		const { story, first, title, theme:layout, suffix, precision } = options
+		const last = (typeof options.last == 'undefined') ? first : options.last
 		draft(story, first, last, title, layout, suffix, precision)
 	})
 	
