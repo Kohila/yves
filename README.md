@@ -17,4 +17,4 @@ yves draft
 | `-c`, `--command` | *Optional* | Default command for drafted pages. Defaults to `======>`. |
 | `-t`, `--layout` | *Optional* | Default layout for drafted pages. Defaults to `layout-default`. |
 | `-e`, `--suffix` | *Optional* | Default panel image extension for drafted pages. Defaults to `gif`. |
-| `-p`, `--precision` | *Optional* | Default nubmer of significant figures for panel image name. Defaults to `5`. |
+| `-p`, `--precision` | *Optional* | Default number of significant figures for panel image name. Defaults to `5`. |
