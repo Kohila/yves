@@ -5,7 +5,7 @@ const { sleep, generateSlug, parsePrecision, getLayout, getStory } = require('./
 const { DCRC_API, DCRC_CDN } = require('../config')
 const log = console.log
 
-const createDraftArray = async (story, layoutId, first, last, command, suffix, precision) => {
+/*const createDraftArray = async (story, layoutId, first, last, command, suffix, precision) => {
 	
 	const draftArray = []
 	
@@ -46,43 +46,32 @@ const uploadDraftArray = async (pages, storyTitle, jwt) => {
 		await sleep(100)
 		log(`${storyTitle} page #${page.pageNumber} has been drafted!`.brightGreen)
 	}
-}
+}*/
 
 module.exports = {
-	async draft(story = null, first = null, last = null, command = '======>', layout = 'layout-default', suffix = 'gif', precision = 5) {
+	async renumber() {
 		try {
-			first = parseInt(first)
-			last = parseInt(last)
-			
-			// argument validation
-			if (story == null)
-				throw `ERROR: Story is not specified. Please specify a story with -s or --story.`
-			else if (first == null)
-				throw `ERROR: First page number is not specified. Please specify a page number with -f or --first.`
-			else if (last == null)
-				throw `ERROR: Last page number is not specified. Please specify a page number with -l or --last.`
-			else if (first > last)
-				throw `ERROR: First page number is greater than the last page number.`
-			
+		
 			const jwt = await authenticate()
-
-			const storyData = await getStory(story.toLowerCase(), jwt)
 			
-			if (storyData.length < 1) {
-				throw `ERROR: No story found with name ${story}.`
-			} else if (storyData.length > 1) {
-				let list = []
-				for (ambiStory of storyData) {
-					list.push(ambiStory.name)
+			for(let i = 1860; i < 1890; i++) {
+				let newNumber = i - 4
+				const { data:page } = await axios.get(`${DCRC_API}/pages/all?pageNumber=${i}`, jwt)
+				log(`Reordering page #${i} to be page #${newNumber}...`.yellow)
+				const newData = {
+					pageNumber: newNumber,
+					nextPageNumber: newNumber+1,
+					slug: generateSlug(page[0].story.name, newNumber)
 				}
-				throw `ERROR: More than one story found matching name criteria "${story}". List of stories found: [${list}]`
+				log(newData)
+				await axios.put(`${DCRC_API}/page/all/${page[0].id}`, newData, {jwt})
+				log(`...done!`.brightGreen)
+				i = 1889
 			}
 			
-			const layoutData = await getLayout(layout, jwt)
-			
-			const pages = await createDraftArray(storyData[0], layoutData.id, first, last, command, suffix, precision)
-			await uploadDraftArray(pages, storyData[0].title, jwt)
-			
+			/*const pages = await createDraftArray(storyData[0], layoutData.id, first, last, command, suffix, precision)
+			await uploadDraftArray(pages, storyData[0].title, jwt)*/
+	
 		} catch (e) {
 			console.error(e.red)
 		}

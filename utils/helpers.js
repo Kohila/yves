@@ -49,8 +49,12 @@ async function getLayout(layout = 'layout-default', jwt) {
 }
 
 async function getStory(story, jwt) {
-	const { data } = await axios.get(`${DCRC_API}/stories?name=${story}`, jwt)
-	return data[0]
+	const { data } = await axios.get(`${DCRC_API}/stories?name_contains=${story}`, jwt)
+	if (data.length > 0) {
+		return data
+	} else {
+		return null
+	}
 }
 
 module.exports = {
