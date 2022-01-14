@@ -6,18 +6,19 @@
   "preferGlobal": true,
   "bin": "./index.js",
   "scripts": {
-    "start": "export NODE_ENV=prod && node index.js",
-    "dev": "export NODE_ENV=dev && node index.js"
+    "start": "set NODE_ENV=prod && node index.js",
+    "dev": "set NODE_ENV=dev && node index.js"
   },
   "author": "Kohi",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.21.1",
-    "colors": "^1.4.0",
-    "commander": "^8.0.0",
+    "chalk": "^4.1.2",
     "dotenv": "^10.0.0",
     "fs": "*",
+    "inquirer": "^8.2.0",
     "moment": "^2.29.1",
+    "ora": "5.4.1",
     "rss": "^1.2.2"
   }
 }

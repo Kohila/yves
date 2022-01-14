@@ -1,11 +1,50 @@
 #!/usr/bin/env node
 const log = console.log
-const { draft } = require('./utils/draft')
-const { publish } = require('./utils/publish')
-const { renumber } = require('./utils/renumber')
+const { draft } = require('./utils2/draft')
+//const { publish } = require('./utils/publish')
+//const { renumber } = require('./utils/renumber')
+
+const chalk = require('chalk')
+const yves = chalk.bold.hex('#953520')
+
+const inquirer = require('inquirer')
+
+const init = async () => {
+	log(yves(`Good evening, Secily.\n`))
+
+	const initQuestions = [
+		{
+			type: 'list',
+			name: 'commands',
+			message: 'What would you like to do today?',
+			choices: [
+				'Draft — Create a collection of drafted boilerplate comic pages.',
+				'Publish — Publish a collection of existing draft comic pages and re-render the corresponing RSS Feed.',
+				'Nothing — Do nothing.']
+		}
+	]
+
+	const answers = await inquirer.prompt(initQuestions)
+
+	const command = answers.commands.split(" ",1)[0]
+
+	switch(command) {
+		case 'Draft':
+			draft()
+			break
+		case 'Publish':
+			break
+		default:
+			log(yves(`\nGoodbye.`))
+			break
+	}
+}
+
+init()
+
 
 // Init commander
-const { Command } = require('commander')
+/*const { Command } = require('commander')
 const program = new Command()
 
 program
@@ -43,4 +82,4 @@ program
 		renumber()
 	})
 
-program.parse(process.argv)
+program.parse(process.argv)*/
